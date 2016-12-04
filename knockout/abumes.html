@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Data Binding with KnockoutJS</title>
+	</head>
+<body>
+
+<table>
+	<thead>
+		<tr>
+			<th>Artis</th>
+			<th>Album</th>
+			<th>Published</th>
+		</tr>
+	</thead>
+	<tbody data-bind="foreach: albumes">
+		<tr>
+			<td data-bind="text: title"></td>
+			<td data-bind="text: artist"></td>
+			<td data-bind="text: $parent.formatDate(publishedDate)"></td>
+		</tr>
+	</tbody>
+</table>
+
+<script type='text/javascript' src='knockout-3.4.1.js'></script>
+
+<script>
+
+	function ViewModel() {
+		
+		var self = this;
+
+		self.albumes = [
+		{
+			title: 'Signos',
+			artist: 'Soda Stereo',
+			publishedDate: '1986-10-11'
+		}, 
+		{
+			title: 'Cancion Animal',
+			artist: 'Soda Stereo',
+			publishedDate: '1990-08-07'
+		}, 
+		{
+			title: 'Doble Vida',
+			artist: 'Soda Stereo',
+			publishedDate: '1988-09-15'
+		}
+		];
+
+		self.formatDate = function(dateToFormat) {
+			var months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+			var d = new Date(dateToFormat);
+			return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+		};
+	};
+
+	var viewModel = new ViewModel();
+	ko.applyBindings(viewModel);
+
+</script>
+</body>
+</html>
